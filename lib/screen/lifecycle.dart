@@ -16,24 +16,24 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     // TODO: implement build
     return Scaffold(
-      body: SizedBox(
-        width: double.infinity,
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            if(show) CodeFactoryWidget(),
-            SizedBox(height: 32.0),
-            ElevatedButton(
-                onPressed: (){
-                  setState(() {
-                    show = !show;
-                  });
-                },
-                child: Text('클릭해서 보이기/안보이기')
-            )
-          ],
-        ),
-      )
+        body: SizedBox(
+          width: double.infinity,
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              if(show) CodeFactoryWidget(),
+              SizedBox(height: 32.0),
+              ElevatedButton(
+                  onPressed: (){
+                    setState(() {
+                      show = !show;
+                    });
+                  },
+                  child: Text('클릭해서 보이기/안보이기')
+              )
+            ],
+          ),
+        )
     );
   }
 }
