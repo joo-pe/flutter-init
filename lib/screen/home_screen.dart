@@ -1,21 +1,125 @@
-import 'dart:async';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-class HomeScreen extends StatelessWidget {
+class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
+
+  @override
+  State<HomeScreen> createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends State<HomeScreen> {
+  DateTime selectedDate = DateTime.now();
 
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
     return Scaffold(
-      body: PageView(
-        children: [1, 2, 3, 4, 5]
-          .map(
-              (e) => Image.asset(
-                  'asset/image/$e.jpeg', fit: BoxFit.cover,))
-          .toList(),
-    )
+      backgroundColor: Colors.pink[100],
+      body: SafeArea(
+        top: true,
+        bottom: false,
+        child: SizedBox(
+          width: MediaQuery.of(context).size.width,
+          child: Column(
+            children: [
+              _Top(
+                selectDate: selectedDate,
+                onPressed: onHeartPressed,
+              ),
+              _Bottom(),
+            ],
+          ),
+        ),
+      ),
     );
   }
 
+  void onHeartPressed(){
+    showCupertinoDialog(
+        context: context,
+        barrierDismissible: true,
+        builder: (BuildContext context){
+          return Align(
+            alignment: Alignment.center,
+            child: Container(
+              color: Colors.white,
+              height: 300.0,
+              child: CupertinoDatePicker(
+                mode: CupertinoDatePickerMode.date,
+                initialDateTime: selectedDate,
+                maximumDate: DateTime.now(),
+                onDateTimeChanged: (DateTime date) {
+                  setState(() {
+                    selectedDate = date;
+                  });
+                },
+                dateOrder: DatePickerDateOrder.ymd,
+              ),
+            ),
+          );
+        }
+    );
+  }
+}
+
+class _Top extends StatelessWidget {
+  final DateTime selectDate;
+  final VoidCallback? onPressed;
+
+  const _Top({
+    required this.selectDate,
+    required this.onPressed,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    final now = DateTime.now();
+    final textTheme = Theme.of(context).textTheme;
+
+    return Expanded(
+      child: Container(
+        child: Column(
+          children: [
+            Text(
+              'U&I',
+              style: textTheme.bodyLarge,
+            ),
+            Text('우리 처음 만난날',
+              style: textTheme.bodyLarge,
+            ),
+            Text(
+              '${selectDate.year}.${selectDate.month}.${selectDate.day}',
+              style: textTheme.bodyLarge,
+            ),
+            IconButton(
+              iconSize: 60.0,
+              color: Colors.red,
+              onPressed: onPressed,
+              icon: Icon(
+                Icons.favorite,
+              )
+            ),
+            Text(
+              'D+${now.difference(selectDate).inDays + 1}',
+              style: textTheme.displayMedium,
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class _Bottom extends StatelessWidget {
+  const _Bottom({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Expanded(
+      child: Container(
+        child: Image.asset('asset/image/aa.jpeg'),
+      ),
+    );
+  }
 }

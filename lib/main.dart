@@ -8,7 +8,30 @@ void main() {
 
   runApp(
       MaterialApp(
-          home: HomeScreen(),
+        theme: ThemeData(
+          fontFamily: '42dot',
+          textTheme: TextTheme(
+            displayLarge: TextStyle(
+              color: Colors.white,
+              fontFamily: 'dart',
+              fontSize: 80.0
+            ),
+            displayMedium: TextStyle(
+              color: Colors.white,
+              fontSize: 50.0
+            ),
+            bodyLarge: TextStyle(
+              color: Colors.white,
+              fontSize: 30.0
+            ),
+            bodyMedium: TextStyle(
+                color: Colors.white,
+                fontFamily: 'Quicksand',
+                fontSize: 20.0
+            ),
+          ),
+        ),
+        home: HomeScreen(),
       ),
   );
 }
